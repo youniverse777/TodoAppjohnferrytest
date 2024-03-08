@@ -4,97 +4,128 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>To-Do List & Notes</title>
-<style>
-    body {
-        font-family: "Raleway", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #2b2b2b;
-        color: #eee;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List & Notes</title>
+    <style>
+        body {
+            font-family: "Raleway", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2b2b2b;
+            color: #eee;
+            display: flex;
+        }
 
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #333;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
 
-    .section-header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
+        .left-sidebar {
+            width: 200px;
+            height: 165px; 
+            margin-right: 20px;
+            background-color: #444;
+            padding: 10px;
+            border-radius: 10px;
+            border-color: #2b2b2b;
+        }
 
-    .input-container {
-        margin-bottom: 20px;
-    }
+        .ticker {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 1px;
+            background-color: #333;
+        }
 
-    input[type="text"],
-    textarea {
-        width: calc(100% - 20px);
-        padding: 10px;
-        border: 1px solid #444;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        font-size: 16px;
-        background-color: #444;
-        color: #eee;
-    }
+        .ticker-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #006115;
+            background-color: #ffffff;
+        }
 
-    textarea {
-        resize: none; /* Disable resizing */
-        height: 200px; /* Fixed height */
-    }
+        .content {
+            flex-grow: 1;
+        }
 
-    button {
-        background-color: #edb707;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-    }
+        .section-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px; 
+            margin-bottom: 20px;
+        }
 
-    button:hover {
-        background-color: #fcdf04;
-    }
+        .input-container {
+            margin-bottom: 20px;
+        }
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
+        input[type="text"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            background-color: #444;
+            color: #eee;
+        }
 
-    li {
-        background-color: #444;
-        border: 1px solid #333;
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 16px;
-        position: relative;
-    }
+        textarea {
+            resize: none; /* Disable resizing */
+            height: 200px; /* Fixed height */
+        }
 
-    .delete-btn {
-        position: absolute;
-        top: 8px;
-        right: 5px;
-        color: #ff6b6b;
-        cursor: pointer;
-    }
+        button {
+            background-color: #edb707;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    .crossed-out {
-        text-decoration: line-through;
-        opacity: 0.5;
-    }
+        button:hover {
+            background-color: #fcdf04;
+        }
 
-    .date-time {
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #444;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #ff6b6b;
+            cursor: pointer;
+        }
+
+        .crossed-out {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .date-time {
         font-family: Arial, Helvetica, sans-serif;
         text-align: center;
         font-size: 32px;
@@ -103,76 +134,147 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    .time {
-        font-size: 50px;
-    }
-
-    .date {
-        font-size: 32px;
-    }
-</style>
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="date-time">
-        <span class="time" id="time"></span>
-        <span class="date" id="datetime"></span>
+<div class="left-sidebar">
+    <div class="ticker">
+        Bitcoin Price
     </div>
-    <div class="input-container">
-        <h2 class="section-header">To-Do List</h2>
-        <input type="text" id="todoInput" placeholder="Add a task...">
-        <button onclick="newElement()">Add Task</button>
+    <div class="ticker-price" id="bitcoinPrice"></div>
+    <div class="ticker">
+        Ethereum Price
     </div>
-    <ul id="todoList" onclick="removeTask(event)"></ul>
+    <div class="ticker-price" id="ethereumPrice"></div>
+    <div class="ticker">
+        Storj Price
+    </div>
+    <div class="ticker-price" id="storjPrice"></div>
+    <div class="ticker">
+        RNDR Token Price
+    </div>
+    <div class="ticker-price" id="rndrPrice"></div>
 </div>
 
-<div class="container note-section">
-    <h2 class="section-header">Notes</h2>
-    <textarea id="noteInput" placeholder="Write a note..."></textarea>
+
+<div class="content">
+    <div class="container">
+        <div class="date-time">
+            <span id="datetime"></span>
+        </div>
+        <div class="input-container">
+            <h2 class="section-header">To-Do List</h2>
+            <input type="text" id="todoInput" placeholder="Add a task...">
+            <button onclick="newElement()">Add Task</button>
+        </div>
+        <ul id="todoList" onclick="removeTask(event)"></ul>
+    </div>
+
+    <div class="container note-section">
+        <h2 class="section-header">Notes</h2>
+        <textarea id="noteInput" placeholder="Write a note..."></textarea>
+    </div>
 </div>
 
 <script>
-function newElement() {
-    var li = document.createElement("li");
-    var inputValue = document.getElementById("todoInput").value;
-    var t = document.createTextNode(inputValue);
-    li.appendChild(t);
-    if (inputValue === '') {
-        alert("Oops! You forgot to write something!");
-    } else {
-        document.getElementById("todoList").appendChild(li);
+    function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("todoInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+            alert("Oops! You forgot to write something!");
+        } else {
+            document.getElementById("todoList").appendChild(li);
+        }
+        document.getElementById("todoInput").value = "";
+
+        var deleteBtn = document.createElement("span");
+        deleteBtn.innerHTML = "&times;";
+        deleteBtn.className = "delete-btn";
+        li.appendChild(deleteBtn);
     }
-    document.getElementById("todoInput").value = "";
 
-    var deleteBtn = document.createElement("span");
-    deleteBtn.innerHTML = "&times;";
-    deleteBtn.className = "delete-btn";
-    li.appendChild(deleteBtn);
-}
-
-function removeTask(event) {
-    if (event.target.tagName === 'LI') {
-        event.target.classList.add('crossed-out');
-        setTimeout(function() {
-            event.target.style.display = 'none';
-        }, 500); // Fading out time in milliseconds
+    function removeTask(event) {
+        if (event.target.tagName === 'LI') {
+            event.target.classList.add('crossed-out');
+            setTimeout(function() {
+                event.target.style.display = 'none';
+            }, 500); // Fading out time in milliseconds
+        }
     }
-}
 
-// Update date and time
-function updateTime() {
-    var dt = new Date();
-    var time = dt.getHours().toString().padStart(2, '0') + ":" + dt.getMinutes().toString().padStart(2, '0') + ":" + dt.getSeconds().toString().padStart(2, '0');
-    document.getElementById("time").innerHTML = time;
-    document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
-}
+    // Update date and time
+    function updateTime() {
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleString();
+    }
 
-updateTime();
-setInterval(updateTime, 1000); // Update every second
-</script>
+    // Fetch Bitcoin price
+    function fetchBitcoinPrice() {
+        fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+            .then(response => response.json())
+            .then(data => {
+                const price = data.bpi.USD.rate;
+                document.getElementById('bitcoinPrice').textContent = price;
+            })
+            .catch(error => {
+                console.error('Error fetching Bitcoin price:', error);
+            });
+    }
+
+    // Fetch Ethereum price
+    function fetchEthereumPrice() {
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+            .then(response => response.json())
+            .then(data => {
+                const price = data.ethereum.usd;
+                document.getElementById('ethereumPrice').textContent = price;
+            })
+            .catch(error => {
+                console.error('Error fetching Ethereum price:', error);
+            });
+    }
+        // Fetch Storj price
+        function fetchStorjPrice() {
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=storj&vs_currencies=usd')
+            .then(response => response.json())
+            .then(data => {
+                const price = data.storj.usd.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById('storjPrice').textContent = "$" + price;
+            })
+            .catch(error => {
+                console.error('Error fetching Storj price:', error);
+            });
+    }
+
+    // Fetch RNDR Token price
+    function fetchRNDPrice() {
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=render-token&vs_currencies=usd')
+            .then(response => response.json())
+            .then(data => {
+                const price = data['render-token'].usd.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById('rndrPrice').textContent = "$" + price;
+            })
+            .catch(error => {
+                console.error('Error fetching RNDR Token price:', error);
+            });
+    }
+
+
+
+           
+
+    updateTime();
+    fetchBitcoinPrice();
+    fetchEthereumPrice();
+    fetchRNDPrice();
+    fetchStorjPrice();
+    setInterval(updateTime, 1000); // Update every second
+
+        </script>
 
 </body>
 </html>
