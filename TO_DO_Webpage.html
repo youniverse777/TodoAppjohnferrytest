@@ -100,7 +100,7 @@
         }
 
         button:hover {
-            background-color: #fcdf04;
+            background-color: #fcdf04e5;
         }
 
         ul {
@@ -224,7 +224,7 @@
             .then(response => response.json())
             .then(data => {
                 const price = data.bpi.USD.rate;
-                document.getElementById('bitcoinPrice').textContent = price;
+                document.getElementById('bitcoinPrice').textContent = "$" + price;
             })
             .catch(error => {
                 console.error('Error fetching Bitcoin price:', error);
@@ -237,7 +237,7 @@
             .then(response => response.json())
             .then(data => {
                 const price = data.ethereum.usd;
-                document.getElementById('ethereumPrice').textContent = price;
+                document.getElementById('ethereumPrice').textContent = "$" + price;
             })
             .catch(error => {
                 console.error('Error fetching Ethereum price:', error);
@@ -275,6 +275,11 @@
     fetchRNDPrice();
     fetchStorjPrice();
     setInterval(updateTime, 1000); // Update every second
+    setInterval(fetchBitcoinPrice, 1000); // Update every second
+    setInterval(fetchEthereumPrice, 1000); // Update every second
+    setInterval(fetchRNDPrice, 1000); // Update every second
+    setInterval(fetchStorjPrice, 1000); // Update every second
+
 
         </script>
 
