@@ -119,7 +119,7 @@
         }
 
         .delete-btn {
-            position: absolute;
+            position: absolute; 
             top: 5px;
             right: 5px;
             color: #ff6b6b;
@@ -141,6 +141,11 @@
         flex-direction: column;
         align-items: center;
         }
+
+        .highlight {
+    transition: background-color 0.5s ease; /* Add a smooth transition effect */
+    background-color: yellow; /* Change to whatever color you prefer */
+}
     </style>
 </head>
 <body>
@@ -219,55 +224,91 @@
     }
 
     // Fetch Bitcoin price
-    function fetchBitcoinPrice() {
-        fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
-            .then(response => response.json())
-            .then(data => {
-                const price = data.bpi.USD.rate;
-                document.getElementById('bitcoinPrice').textContent = "$" + price;
-            })
-            .catch(error => {
-                console.error('Error fetching Bitcoin price:', error);
-            });
-    }
+function fetchBitcoinPrice() {
+    fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+        .then(response => response.json())
+        .then(data => {
+            const price = parseFloat(data.bpi.USD.rate.replace(',', ''));
+            const bitcoinPriceElement = document.getElementById('bitcoinPrice');
+            const currentPrice = parseFloat(bitcoinPriceElement.textContent.replace('$', '').replace(',', ''));
+            bitcoinPriceElement.textContent = "$" + price.toLocaleString(); // Display the newly fetched price
+            if (price !== currentPrice) {
+                bitcoinPriceElement.classList.add('highlight'); // Add highlight class if price changed
+                setTimeout(() => {
+                    bitcoinPriceElement.classList.remove('highlight'); // Remove highlight class after brief moment
+                }, 500); // Highlight duration in milliseconds
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching Bitcoin price:', error);
+        });
+}
 
-    // Fetch Ethereum price
-    function fetchEthereumPrice() {
-        fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
-            .then(response => response.json())
-            .then(data => {
-                const price = data.ethereum.usd;
-                document.getElementById('ethereumPrice').textContent = "$" + price;
-            })
-            .catch(error => {
-                console.error('Error fetching Ethereum price:', error);
-            });
-    }
-        // Fetch Storj price
-        function fetchStorjPrice() {
-        fetch('https://api.coingecko.com/api/v3/simple/price?ids=storj&vs_currencies=usd')
-            .then(response => response.json())
-            .then(data => {
-                const price = data.storj.usd.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                document.getElementById('storjPrice').textContent = "$" + price;
-            })
-            .catch(error => {
-                console.error('Error fetching Storj price:', error);
-            });
-    }
+// Function to fetch Ethereum price
+function fetchEthereumPrice() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            const price = parseFloat(data.ethereum.usd);
+            const ethereumPriceElement = document.getElementById('ethereumPrice');
+            const currentPrice = parseFloat(ethereumPriceElement.textContent.replace('$', '').replace(',', ''));
+            ethereumPriceElement.textContent = "$" + price.toLocaleString(); // Display the newly fetched price
+            if (price !== currentPrice) {
+                ethereumPriceElement.classList.add('highlight'); // Add highlight class if price changed
+                setTimeout(() => {
+                    ethereumPriceElement.classList.remove('highlight'); // Remove highlight class after brief moment
+                }, 500); // Highlight duration in milliseconds
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching Ethereum price:', error);
+        });
+}
 
-    // Fetch RNDR Token price
-    function fetchRNDPrice() {
-        fetch('https://api.coingecko.com/api/v3/simple/price?ids=render-token&vs_currencies=usd')
-            .then(response => response.json())
-            .then(data => {
-                const price = data['render-token'].usd.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                document.getElementById('rndrPrice').textContent = "$" + price;
-            })
-            .catch(error => {
-                console.error('Error fetching RNDR Token price:', error);
-            });
-    }       
+// Function to fetch Storj price
+function fetchStorjPrice() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=storj&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            const price = parseFloat(data.storj.usd);
+            const storjPriceElement = document.getElementById('storjPrice');
+            const currentPrice = parseFloat(storjPriceElement.getAttribute('data-price'));
+            storjPriceElement.setAttribute('data-price', price); // Store the new price as a data attribute
+            storjPriceElement.textContent = "$" + price.toLocaleString(); // Display the newly fetched price
+            if (price !== currentPrice) {
+                storjPriceElement.classList.add('highlight'); // Add highlight class if price changed
+                setTimeout(() => {
+                    storjPriceElement.classList.remove('highlight'); // Remove highlight class after brief moment
+                }, 500); // Highlight duration in milliseconds
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching Storj price:', error);
+        });
+}
+
+
+// Function to fetch RNDR Token price
+function fetchRNDPrice() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=render-token&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            const price = parseFloat(data['render-token'].usd);
+            const rndrPriceElement = document.getElementById('rndrPrice');
+            const currentPrice = parseFloat(rndrPriceElement.textContent.replace('$', '').replace(',', ''));
+            rndrPriceElement.textContent = "$" + price.toLocaleString(); // Display the newly fetched price
+            if (price !== currentPrice) {
+                rndrPriceElement.classList.add('highlight'); // Add highlight class if price changed
+                setTimeout(() => {
+                    rndrPriceElement.classList.remove('highlight'); // Remove highlight class after brief moment
+                }, 500); // Highlight duration in milliseconds
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching RNDR Token price:', error);
+        });
+}
+     
 
     updateTime();
     fetchBitcoinPrice();
@@ -275,10 +316,10 @@
     fetchRNDPrice();
     fetchStorjPrice();
     setInterval(updateTime, 1000); // Update every second
-    setInterval(fetchBitcoinPrice, 1000); // Update every second
-    setInterval(fetchEthereumPrice, 1000); // Update every second
-    setInterval(fetchRNDPrice, 1000); // Update every second
-    setInterval(fetchStorjPrice, 1000); // Update every second
+    setInterval(fetchBitcoinPrice, 1000); 
+    setInterval(fetchEthereumPrice, 1000); 
+    setInterval(fetchRNDPrice, 1000); 
+    setInterval(fetchStorjPrice, 1000); 
 
 
         </script>
